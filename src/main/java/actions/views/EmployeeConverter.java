@@ -1,4 +1,4 @@
-package views;
+package actions.views;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,7 @@ import constants.JpaConst;
 import models.Employee;
 
 public class EmployeeConverter {
-
-    public static Employee toModel(EmployeeView ev) {
+    public static Employee toModel(Employee ev) {
 
         return new Employee(
                 ev.getId(),
@@ -35,13 +34,13 @@ public class EmployeeConverter {
      * @param e Employeeのインスタンス
      * @return EmployeeViewのインスタンス
      */
-    public static EmployeeView toView(Employee e) {
+    public static Employee toView(Employee e) {
 
-        if (e == null) {
+        if(e == null) {
             return null;
         }
 
-        return new EmployeeView(
+        return new Employee(
                 e.getId(),
                 e.getCode(),
                 e.getName(),
@@ -60,17 +59,26 @@ public class EmployeeConverter {
                                 : AttributeConst.DEL_FLAG_FALSE.getIntegerValue());
     }
 
-    public static List<EmployeeView> toViewList(List<Employee> list) {
-        List<EmployeeView> evs = new ArrayList<>();
+    /**
+     * DTOモデルのリストからViewモデルのリストを作成する
+     * @param list DTOモデルのリスト
+     * @return Viewモデルのリスト
+     */
+    public static List<Employee> toViewList(List<Employee> list) {
+        List<Employee> evs = new ArrayList<>();
 
         for (Employee e : list) {
             evs.add(toView(e));
         }
 
         return evs;
-
     }
 
+    /**
+     * Viewモデルの全フィールドの内容をDTOモデルのフィールドにコピーする
+     * @param e DTOモデル(コピー先)
+     * @param ev Viewモデル(コピー元)
+     */
     public static void copyViewToModel(Employee e, Employee ev) {
         e.setId(ev.getId());
         e.setCode(ev.getCode());
@@ -78,7 +86,11 @@ public class EmployeeConverter {
         e.setPassword(ev.getPassword());
         e.setAdminFlag(ev.getAdminFlag());
         e.setCreatedAt(ev.getCreatedAt());
+        e.setUpdatedAt(ev.getUpdatedAt());
         e.setDeleteFlag(ev.getDeleteFlag());
 
     }
+
+
+
 }
