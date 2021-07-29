@@ -8,7 +8,7 @@ import constants.JpaConst;
 import models.Employee;
 
 public class EmployeeConverter {
-    public static Employee toModel(Employee ev) {
+    public static Employee toModel(EmployeeView ev) {
 
         return new Employee(
                 ev.getId(),
@@ -34,13 +34,13 @@ public class EmployeeConverter {
      * @param e Employeeのインスタンス
      * @return EmployeeViewのインスタンス
      */
-    public static Employee toView(Employee e) {
+    public static EmployeeView toView(Employee e) {
 
         if(e == null) {
             return null;
         }
 
-        return new Employee(
+        return new EmployeeView(
                 e.getId(),
                 e.getCode(),
                 e.getName(),
@@ -64,8 +64,8 @@ public class EmployeeConverter {
      * @param list DTOモデルのリスト
      * @return Viewモデルのリスト
      */
-    public static List<Employee> toViewList(List<Employee> list) {
-        List<Employee> evs = new ArrayList<>();
+    public static List<EmployeeView> toViewList(List<Employee> list) {
+        List<EmployeeView> evs = new ArrayList<>();
 
         for (Employee e : list) {
             evs.add(toView(e));
@@ -79,7 +79,7 @@ public class EmployeeConverter {
      * @param e DTOモデル(コピー先)
      * @param ev Viewモデル(コピー元)
      */
-    public static void copyViewToModel(Employee e, Employee ev) {
+    public static void copyViewToModel(Employee e, EmployeeView ev) {
         e.setId(ev.getId());
         e.setCode(ev.getCode());
         e.setName(ev.getName());
